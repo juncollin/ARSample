@@ -15,6 +15,7 @@
 		A398D914202CA5FA00D64E09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A398D912202CA5FA00D64E09 /* LaunchScreen.storyboard */; };
 		A398D91F202CA5FA00D64E09 /* ARSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398D91E202CA5FA00D64E09 /* ARSampleTests.swift */; };
 		A398D92A202CA5FA00D64E09 /* ARSampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398D929202CA5FA00D64E09 /* ARSampleUITests.swift */; };
+		A398D9382033378500D64E09 /* img.png in Resources */ = {isa = PBXBuildFile; fileRef = A398D9372033378500D64E09 /* img.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		A398D925202CA5FA00D64E09 /* ARSampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARSampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A398D929202CA5FA00D64E09 /* ARSampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARSampleUITests.swift; sourceTree = "<group>"; };
 		A398D92B202CA5FA00D64E09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A398D9372033378500D64E09 /* img.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				A398D910202CA5FA00D64E09 /* Assets.xcassets */,
 				A398D912202CA5FA00D64E09 /* LaunchScreen.storyboard */,
 				A398D915202CA5FA00D64E09 /* Info.plist */,
+				A398D9372033378500D64E09 /* img.png */,
 			);
 			path = ARSample;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A398D9382033378500D64E09 /* img.png in Resources */,
 				A398D90A202CA5F900D64E09 /* art.scnassets in Resources */,
 				A398D914202CA5FA00D64E09 /* LaunchScreen.storyboard in Resources */,
 				A398D911202CA5FA00D64E09 /* Assets.xcassets in Resources */,

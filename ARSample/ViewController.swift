@@ -23,8 +23,41 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+//        // Create a new scene
+//        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+
+        // create a new scene
+        let scene = SCNScene()
+        
+        // create and add a camera t the scene
+        let cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        scene.rootNode.addChildNode(cameraNode)
+
+        // place the camera
+        cameraNode.position = SCNVector3(0.0, 0.0, 5.0)
+        
+        // create and add a light to the scene
+        let lightNode = SCNNode()
+        lightNode.light = SCNLight()
+        lightNode.light?.type = SCNLight.LightType.omni
+        lightNode.position = SCNVector3(x:0, y:0.3, z:2.5)
+        scene.rootNode.addChildNode(lightNode)
+        
+        let boxNode = SCNNode()
+        boxNode.geometry = SCNBox(width:0.3, height:0.3, length:0.3, chamferRadius:0.02)
+        scene.rootNode.addChildNode(boxNode)
+        
+        // create and configure a material
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named:"img")
+        material.specular.contents = UIColor.gray
+        material.locksAmbientWithDiffuse = true
+        
+        // set the material to the 3D object geometry
+        boxNode.geometry?.firstMaterial = material
+
+        boxNode.position = SCNVector3(x:0, y:-0.2, z:-0.4)
         
         // Set the scene to the view
         sceneView.scene = scene
