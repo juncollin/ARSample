@@ -26,41 +26,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //        // Create a new scene
 //        let scene = SCNScene(named: "art.scnassets/ship.scn")!
 
+        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+        
         // create a new scene
         let scene = SCNScene()
         
-        // create and add a camera t the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
-
-        // place the camera
-        cameraNode.position = SCNVector3(0.0, 0.0, 5.0)
-        
-        // create and add a light to the scene
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light?.type = SCNLight.LightType.omni
-        lightNode.position = SCNVector3(x:0, y:0.3, z:2.5)
-        scene.rootNode.addChildNode(lightNode)
-        
-        let boxNode = SCNNode()
-        boxNode.geometry = SCNBox(width:0.3, height:0.3, length:0.3, chamferRadius:0.02)
-        scene.rootNode.addChildNode(boxNode)
-        
-        // create and configure a material
-        let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named:"img")
-        material.specular.contents = UIColor.gray
-        material.locksAmbientWithDiffuse = true
-        
-        // set the material to the 3D object geometry
-        boxNode.geometry?.firstMaterial = material
-
-        boxNode.position = SCNVector3(x:0, y:-0.2, z:-0.4)
-        
         // Set the scene to the view
         sceneView.scene = scene
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,8 +42,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
 
+        configuration.planeDetection =  [.horizontal, .vertical]
+//        configuration.planeDetection =  .vertical
+//        configuration.planeDetection =  .horizontal
+
+        configuration.isLightEstimationEnabled = true
         // Run the view's session
         sceneView.session.run(configuration)
+
+//        a()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,14 +67,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+//    // Override to create and configure nodes for anchors added to the view's session.
+//    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+//        let node = SCNNode()
+//        return node
+//    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        ted(anchor: planeAnchor)
+//        let plane = Plane(anchor: planeAnchor)
+//        
+//        node.addChildNode(plane)
+//        
+//        let text = Text(anchor: planeAnchor)
+//        node.addChildNode(text)
     }
-*/
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+    }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -110,4 +105,50 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
+    
+    func ted(anchor: ARPlaneAnchor) {
+        let url = Bundle.main.url(forResource: "ted", withExtension: "dae")!
+        let modelScene: SCNScene
+        do {
+            modelScene = try SCNScene(url: url, options: nil)
+        } catch {
+            fatalError()
+        }
+        let modelNode = SCNNode()
+        for childNode in modelScene.rootNode.childNodes {
+            modelNode.addChildNode(childNode)
+        }
+        modelNode.scale = SCNVector3(0.01, 0.01, 0.01)
+        modelNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+        modelNode.rotation = SCNVector4(1, 0, 0, -0.5 * Float.pi)
+
+        sceneView.scene.rootNode.addChildNode(modelNode)
+    }
+    
+    func batman(anchor: ARPlaneAnchor) {
+        print("add batman")
+        let url = Bundle.main.url(forResource: "Batman", withExtension: "dae")!
+        let modelScene: SCNScene
+        do {
+            modelScene = try SCNScene(url: url, options: nil)
+        } catch {
+            fatalError()
+        }
+        let modelNode = SCNNode()
+        for childNode in modelScene.rootNode.childNodes {
+            modelNode.addChildNode(childNode)
+        }
+        modelNode.scale = SCNVector3(0.01, 0.01, 0.01)
+        let (min, max) = (modelNode.boundingBox)
+        let w = Float(max.x - min.x)
+        let h = Float(max.y - min.y)
+        
+        modelNode.position = SCNVector3Make(anchor.center.x - w/2*0.01, 0, anchor.center.z - h/2*0.01)
+        modelNode.rotation = SCNVector4(1, 0, 0, -0.5 * Float.pi)
+
+        print(modelNode.position)
+        sceneView.scene.rootNode.addChildNode(modelNode)
+    }
+    
+    
 }
