@@ -1,11 +1,3 @@
-//
-//  Text.swift
-//  ARSample
-//
-//  Created by 有本淳吾 on 2018/03/21.
-//  Copyright © 2018年 有本淳吾. All rights reserved.
-//
-
 import UIKit
 import SceneKit
 import ARKit
