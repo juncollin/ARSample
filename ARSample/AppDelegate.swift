@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  ARSample
-//
-//  Created by 有本淳吾 on 2018/02/09.
-//  Copyright © 2018年 有本淳吾. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
