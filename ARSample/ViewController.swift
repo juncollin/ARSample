@@ -49,8 +49,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         configuration.isLightEstimationEnabled = true
         // Run the view's session
         sceneView.session.run(configuration)
-
-//        a()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -76,13 +74,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
-        ted(anchor: planeAnchor)
-//        let plane = Plane(anchor: planeAnchor)
-//        
-//        node.addChildNode(plane)
-//        
-//        let text = Text(anchor: planeAnchor)
-//        node.addChildNode(text)
+        let plane = Plane(anchor: planeAnchor)
+        
+        node.addChildNode(plane)
+        
+        let text = Text(anchor: planeAnchor)
+        node.addChildNode(text)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
@@ -105,50 +102,5 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
-    
-    func ted(anchor: ARPlaneAnchor) {
-        let url = Bundle.main.url(forResource: "ted", withExtension: "dae")!
-        let modelScene: SCNScene
-        do {
-            modelScene = try SCNScene(url: url, options: nil)
-        } catch {
-            fatalError()
-        }
-        let modelNode = SCNNode()
-        for childNode in modelScene.rootNode.childNodes {
-            modelNode.addChildNode(childNode)
-        }
-        modelNode.scale = SCNVector3(0.01, 0.01, 0.01)
-        modelNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
-        modelNode.rotation = SCNVector4(1, 0, 0, -0.5 * Float.pi)
-
-        sceneView.scene.rootNode.addChildNode(modelNode)
-    }
-    
-    func batman(anchor: ARPlaneAnchor) {
-        print("add batman")
-        let url = Bundle.main.url(forResource: "Batman", withExtension: "dae")!
-        let modelScene: SCNScene
-        do {
-            modelScene = try SCNScene(url: url, options: nil)
-        } catch {
-            fatalError()
-        }
-        let modelNode = SCNNode()
-        for childNode in modelScene.rootNode.childNodes {
-            modelNode.addChildNode(childNode)
-        }
-        modelNode.scale = SCNVector3(0.01, 0.01, 0.01)
-        let (min, max) = (modelNode.boundingBox)
-        let w = Float(max.x - min.x)
-        let h = Float(max.y - min.y)
-        
-        modelNode.position = SCNVector3Make(anchor.center.x - w/2*0.01, 0, anchor.center.z - h/2*0.01)
-        modelNode.rotation = SCNVector4(1, 0, 0, -0.5 * Float.pi)
-
-        print(modelNode.position)
-        sceneView.scene.rootNode.addChildNode(modelNode)
-    }
-    
     
 }

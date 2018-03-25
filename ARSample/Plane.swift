@@ -23,10 +23,6 @@ class Plane: SCNNode {
         planeNode.physicsBody = SCNPhysicsBody(type: .kinematic,
                                                shape: SCNPhysicsShape(geometry: planeGeometry,
                                                                       options: nil))
-        
-//        let material = SCNMaterial()
-//        material.diffuse.contents = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
-        
         addChildNode(planeNode)
     }
     

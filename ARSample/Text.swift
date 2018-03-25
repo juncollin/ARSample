@@ -40,15 +40,12 @@ class Text: SCNNode {
         h = CGFloat(max.y - min.y)
         print("\(str) x:\(anchor.center.x) y:\(anchor.center.y) z:\(anchor.center.z) w:\(w) h:\(h)")
         
-//        textNode.position = SCNVector3(anchor.center.x - (Float)(w/2), anchor.center.y - (Float)(h/2), anchor.center.z + 0.9)
         textNode.rotation = SCNVector4(1, 0, 0, -0.5 * Float.pi)
         textNode.position = SCNVector3(0.0, 0.0, 0.9)
 
         textNode.geometry?.materials.first?.diffuse.contents = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.7)
         
         addChildNode(textNode)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
